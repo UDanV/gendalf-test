@@ -1,0 +1,62 @@
+.foldable {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.foldable-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.foldable-title.open {
+  color: #00B7EC;
+  text-decoration: underline;
+}
+
+.foldable-icon-wrapper {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foldable-icon {
+  width: 23px;
+  height: 23px;
+  transition: transform 0.3s ease;
+}
+
+.foldable-icon-wrapper.open .foldable-icon {
+  transform: rotate(180deg);
+}
+
+.foldable-title {
+  color: #666666;
+  text-decoration: underline;
+}
+
+.foldable-content {
+  max-height: 0;
+  overflow: hidden;
+  color: #666666;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.foldable-content.open {
+  max-height: 350px;
+  padding: 10px;
+}
+
+@media (max-width: 960px) {
+  .foldable-content.open {
+    max-height: 800px;
+  }
+}
+
+.foldable-content-inner {
+  padding: 10px;
+}
