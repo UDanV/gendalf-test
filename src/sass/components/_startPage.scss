@@ -121,20 +121,20 @@
     .imgContainer {
       .polygon1 {
         position: absolute;
-        bottom: -130px;
-        right: 400px;
+        bottom: -20%;
+        right: 15%;
         backdrop-filter: blur(1px);
       }
       .polygon2 {
         position: absolute;
-        right: 210px;
-        bottom: -430px;
+        right: 2%;
+        bottom: -65%;
         backdrop-filter: blur(3px);
       }
       .polygon3 {
         position: absolute;
-        right: 480px;
-        bottom: -380px;
+        right: 20%;
+        bottom: -60%;
         backdrop-filter: blur(3px);
       }
     }
@@ -365,6 +365,45 @@
         margin-top: 15px;
         width: 100%;
         gap: 70px;
+      }
+
+      .filesContainer {
+        margin-right: auto;
+        margin-left: 155px;
+
+        .filesListContainer {
+          margin: 20px;
+          color: #FFFFFF;
+          text-decoration: underline;
+          gap: 10px;
+          display: flex;
+          align-items: center;
+          align-content: center;
+          justify-content: space-between;
+
+          button {
+            background-color: transparent;
+            border: none;
+
+            img {
+              cursor: pointer;
+              display: flex;
+              width: 20px;
+              height: 20px;
+              align-self: center;
+            }
+          }
+        }
+        @media (max-width: 960px) {
+          margin-left: 0;
+          text-align: left;
+
+          .filesListContainer {
+            display: flex;
+            margin: 20px 10px 10px 0;
+            justify-content: space-between;
+          }
+        }
       }
     }
   }

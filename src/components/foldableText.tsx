@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import '../sass/components/_foldable.scss';
-
-interface FoldableProps {
-    title: string;
-    content: React.ReactNode;
-    iconOpen: React.ReactNode;
-    iconClosed: React.ReactNode;
-}
+import {FoldableProps} from "../types/foldableText";
 
 const Foldable: React.FC<FoldableProps> = ({ title, content, iconOpen, iconClosed }) => {
     const [isOpen, setIsOpen] = useState(false);

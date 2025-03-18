@@ -24,9 +24,33 @@ import {NewsContainer} from "../components/slider.tsx";
 import Foldable from "../components/foldableText.tsx";
 import InputField from "../components/input.tsx";
 import {Header} from "../components/header.tsx";
+import {validateInput} from "../utils/validation";
 
 export const StartPage: React.FC = () => {
     const [backgroundImage, setBackgroundImage] = useState(mainImage);
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [position, setPosition] = useState('');
+    const [experience, setExperience] = useState('');
+    const [message, setMessage] = useState('');
+    const [files, setFiles] = useState([]);
+
+    const iconClose = (<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11.5" cy="11.5" r="10.5" stroke="#00B7EC" stroke-width="2"/>
+            <path
+                d="M16.5 11.134C17.1667 11.5189 17.1667 12.4811 16.5 12.866L9 17.1962C8.33333 17.5811 7.5 17.0999 7.5 16.3301L7.5 7.66987C7.5 6.90007 8.33333 6.41895 9 6.80385L16.5 11.134Z"
+                fill="#00B7EC"/>
+        </svg>
+    );
+
+    const iconOpen = (<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11.5" cy="11.5" r="10.5" transform="rotate(90 11.5 11.5)" stroke="#00B7EC" stroke-width="2"/>
+            <path
+                d="M11.866 16.5C11.4811 17.1667 10.5189 17.1667 10.134 16.5L5.80385 9C5.41895 8.33333 5.90007 7.5 6.66987 7.5L15.3301 7.5C16.0999 7.5 16.5811 8.33333 16.1962 9L11.866 16.5Z"
+                fill="#00B7EC"/>
+        </svg>
+    )
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,28 +74,31 @@ export const StartPage: React.FC = () => {
         alert("Что то произошло")
     }
 
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [position, setPosition] = useState('');
-    const [experience, setExperience] = useState('');
-    const [message, setMessage] = useState('');
+    const handleSendData = () => {
+        const isNameValid = validateInput('text', name, true);
+        const isEmailValid = validateInput('email', email, true);
+        const isPhoneValid = validateInput('tel', phone, true);
+        const isPositionValid = validateInput('text', position, true);
+        const isExperienceValid = validateInput('text', experience, true);
+        const isMessageValid = validateInput('textarea', message, true);
 
-    const iconClose = (<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="11.5" cy="11.5" r="10.5" stroke="#00B7EC" stroke-width="2"/>
-            <path
-                d="M16.5 11.134C17.1667 11.5189 17.1667 12.4811 16.5 12.866L9 17.1962C8.33333 17.5811 7.5 17.0999 7.5 16.3301L7.5 7.66987C7.5 6.90007 8.33333 6.41895 9 6.80385L16.5 11.134Z"
-                fill="#00B7EC"/>
-        </svg>
-    );
+        if (isNameValid && isEmailValid && isPhoneValid && isPositionValid && isExperienceValid && isMessageValid) {
+            const formData = { name, email, phone, position, experience, message, files };
+            console.log('Данные формы:', formData);
+        } else {
+            console.log('Форма содержит ошибки');
+        }
+    };
 
-    const iconOpen = (<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="11.5" cy="11.5" r="10.5" transform="rotate(90 11.5 11.5)" stroke="#00B7EC" stroke-width="2"/>
-            <path
-                d="M11.866 16.5C11.4811 17.1667 10.5189 17.1667 10.134 16.5L5.80385 9C5.41895 8.33333 5.90007 7.5 6.66987 7.5L15.3301 7.5C16.0999 7.5 16.5811 8.33333 16.1962 9L11.866 16.5Z"
-                fill="#00B7EC"/>
-        </svg>
-    )
+    const handleFileChange = (e) => {
+        const selectedFiles = e.target.files;
+        const filesArray = Array.from(selectedFiles);
+        setFiles((prevFiles) => [...prevFiles, ...filesArray]);
+    }
+
+    const handleRemoveFile = (index) => {
+        setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    }
 
     return (
         <div className="wrapper">
@@ -258,7 +285,7 @@ export const StartPage: React.FC = () => {
                         <InputField
                             type="tel"
                             value={phone}
-                            onChange={setPhone}
+                            onChange={(value) => setPhone(value)}
                             required
                             placeholder="Телефон"
                             iconCorrect={correct}
@@ -299,8 +326,30 @@ export const StartPage: React.FC = () => {
                             rows={5}
                         />
                         <div className="btnContainer">
-                            <Button onClick={handleClick} variant="whiteGreen" icon={attach}>Прикрепить резюме</Button>
-                            <Button onClick={handleClick} variant="green">Записаться</Button>
+                            <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+                                <Button onClick={() => document.getElementById('file-upload').click()} variant="whiteGreen" icon={attach}>
+                                    Прикрепить резюме
+                                </Button>
+                            </label>
+                            <input
+                                id="file-upload"
+                                type="file"
+                                accept={".docx,.pdf,.rtf,.doc"}
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                                multiple
+                            />
+                            <Button onClick={handleSendData} variant="green">Записаться</Button>
+                        </div>
+                        <div className="filesContainer">
+                            {files.map((file, index) => (
+                                <div key={index} className="filesListContainer">
+                                    <span>{file.name}</span>
+                                    <button onClick={() => handleRemoveFile(index)}>
+                                        <img src={error}  alt={"remove"}/>
+                                    </button>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
