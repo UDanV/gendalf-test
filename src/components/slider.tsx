@@ -10,7 +10,7 @@ import 'swiper/swiper-bundle.css';
 
 export const NewsContainer: React.FC = () => {
     return (
-        <div className="newsContainer">
+        <div className="news">
             <Swiper
                 modules={[Navigation]}
                 slidesPerView={4}

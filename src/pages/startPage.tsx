@@ -17,7 +17,8 @@ import {
     interviewImg,
     attach,
     error,
-    correct, mainImageMob,
+    correct,
+    mainImageMob,
 } from '../components/images.tsx'
 import React, {useEffect, useState} from "react";
 import {NewsContainer} from "../components/slider.tsx";
@@ -34,7 +35,7 @@ export const StartPage: React.FC = () => {
     const [position, setPosition] = useState('');
     const [experience, setExperience] = useState('');
     const [message, setMessage] = useState('');
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<File[]>([]);
 
     const iconClose = (<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="11.5" cy="11.5" r="10.5" stroke="#00B7EC" stroke-width="2"/>
@@ -90,36 +91,38 @@ export const StartPage: React.FC = () => {
         }
     };
 
-    const handleFileChange = (e) => {
-        const selectedFiles = e.target.files;
-        const filesArray = Array.from(selectedFiles);
-        setFiles((prevFiles) => [...prevFiles, ...filesArray]);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = event.target.files;
+        if (selectedFiles) {
+            const filesArray = Array.from(selectedFiles);
+            setFiles((prevFiles) => [...prevFiles, ...filesArray]);
+        }
     }
 
-    const handleRemoveFile = (index) => {
+    const handleRemoveFile = (index: number) => {
         setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
     }
 
     return (
         <div className="wrapper">
             <Header/>
-            <div className="mainContainer" style={{backgroundImage: `url(${backgroundImage})`}}>
+            <div className="hero" style={{backgroundImage: `url(${backgroundImage})`}}>
                 <h1>Добро пожаловать <br/> в ГЭНДАЛЬФ!</h1>
                 <p>
                     Мы готовы поделиться секретом, почему любим компанию,<br/>
                     в которой работаем. Если тебе будут близки наши ценности и идеи,<br/>
                     то смело записывайся на собеседование!
                 </p>
-                <div className="btnContainer">
+                <div className="hero__buttons">
                     <Button onClick={handleClick} variant="green">Почему мы</Button>
                     <Button onClick={handleClick} variant="whiteGreen">Записаться на собеседование</Button>
                 </div>
             </div>
             <div className="container">
                 <h2>О том, чем мы занимаемся</h2>
-                <div className="weDoContainer">
+                <div className="about">
                     <div className="wrapper">
-                        <div className="textContainer">
+                        <div className="about__text">
                             <p>ГЭНДАЛЬФ – один из крупнейших игроков на рынке информационных технологий, занимающий 4
                                 место среди 7000 партнеров фирмы «1С». У нас есть представительства в 15 городах России,
                                 а нашими услугами пользуются 23 000 организаций-клиентов, в числе которых «Базэл Аэро»,
@@ -131,20 +134,20 @@ export const StartPage: React.FC = () => {
                                 ограничен привычными рамками.
                             </p>
                         </div>
-                        <div className="btnContainer">
+                        <div className="about__buttons">
                             <Button onClick={handleClick} variant="blue">Узнать больше</Button>
                             <Button onClick={handleClick} variant="whiteBlue">Записаться на собеседование</Button>
                         </div>
                     </div>
-                    <div className="imgContainer">
-                        <img className="polygon1" src={polygon1} alt="polygon1"/>
-                        <img className="polygon2" src={polygon2} alt="polygon2"/>
-                        <img className="polygon3" src={polygon3} alt="polygon3"/>
+                    <div className="about__images">
+                        <img className="about__images--polygon1" src={polygon1} alt="polygon1"/>
+                        <img className="about__images--polygon2" src={polygon2} alt="polygon2"/>
+                        <img className="about__images--polygon3" src={polygon3} alt="polygon3"/>
                         <img src={adobeImage1} alt="adobe"/>
                     </div>
                 </div>
             </div>
-            <div className="valuesContainer">
+            <div className="values">
                 <div className="container">
                     <h2>Наши ценности скажут о нас больше:</h2>
                     <Swiper
@@ -176,10 +179,10 @@ export const StartPage: React.FC = () => {
                     </Swiper>
                 </div>
             </div>
-            <div className="developmentContainer">
+            <div className="development">
                 <h2>Инфраструктура для твоего развития и роста</h2>
                 <div className="container">
-                    <div className="textContainer">
+                    <div className="development__text">
                         <p>
                             Мы создаем платформу для профессионального развития каждого сотрудника. Главная цель – дать
                             возможность учиться, работать и получать удовольствие от каждой успешной задачи.
@@ -189,7 +192,7 @@ export const StartPage: React.FC = () => {
                             карьеры Татьяна Арсенович.
                         </p>
                     </div>
-                    <div className="videoContainer">
+                    <div className="development__video">
                         <iframe
                             src="https://rutube.ru/play/embed/95d5daa567cdd707899b9fb45ea247e1"
                             frameBorder="0"
@@ -203,15 +206,15 @@ export const StartPage: React.FC = () => {
                 <h2>Живая лента</h2>
                 <NewsContainer/>
             </div>
-            <div className="intershipContainer" style={{backgroundImage: `url(${intershipImg})`}}>
+            <div className="internship" style={{backgroundImage: `url(${intershipImg})`}}>
                 <h1>Ты студент и хочешь устроиться <br/>на практику?</h1>
                 <Button onClick={handleClick} variant="green">Оставить заявку</Button>
             </div>
-            <div className="questionsContainer">
+            <div className="questions">
                 <div className="container">
                     <h2>Ответы на вопросы</h2>
-                    <div className="elemsContainer">
-                        <div className="foldableTextContainer">
+                    <div className="questions__content">
+                        <div className="questions__foldable">
                             <Foldable
                                 title="На что нужно обратить внимание на собеседовании?"
                                 content={<>
@@ -263,15 +266,15 @@ export const StartPage: React.FC = () => {
                                 iconClosed={iconClose}
                             />
                         </div>
-                        <div className="imageContainer">
+                        <div className="questions__image">
                             <img src={questionsImg} alt=""/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="interviewContainer" style={{backgroundImage: `url(${interviewImg})`}}>
-                <div className="formContainer">
-                    <div className="form">
+            <div className="interview" style={{backgroundImage: `url(${interviewImg})`}}>
+                <div className="interview__content">
+                    <div className="interview__form">
                         <h2>Записаться на собеседование</h2>
                         <InputField
                             type="text"
@@ -325,9 +328,18 @@ export const StartPage: React.FC = () => {
                             placeholder="Ваши вопросы"
                             rows={5}
                         />
-                        <div className="btnContainer">
+                        <div className="interview__buttons">
                             <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
-                                <Button onClick={() => document.getElementById('file-upload').click()} variant="whiteGreen" icon={attach}>
+                                <Button
+                                    onClick={() => {
+                                        const fileUpload = document.getElementById('file-upload');
+                                        if (fileUpload) {
+                                            fileUpload.click();
+                                        }
+                                    }}
+                                    variant="whiteGreen"
+                                    icon={attach}
+                                >
                                     Прикрепить резюме
                                 </Button>
                             </label>
@@ -341,9 +353,9 @@ export const StartPage: React.FC = () => {
                             />
                             <Button onClick={handleSendData} variant="green">Записаться</Button>
                         </div>
-                        <div className="filesContainer">
+                        <div className="interview__files">
                             {files.map((file, index) => (
-                                <div key={index} className="filesListContainer">
+                                <div key={index} className="interview__files--list">
                                     <span>{file.name}</span>
                                     <button onClick={() => handleRemoveFile(index)}>
                                         <img src={error}  alt={"remove"}/>

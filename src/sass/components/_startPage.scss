@@ -1,4 +1,4 @@
-.mainContainer {
+.hero {
   width: 100%;
   margin: 0;
   height: 90vh;
@@ -22,36 +22,22 @@
     font-weight: lighter;
   }
 
-  .btnContainer {
+  &__buttons {
     display: flex;
     justify-content: center;
     gap: 50px;
     margin: 20px;
   }
 
-  .mainImg {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-  
   @media (max-width: 960px) {
 
-    .mainContainer {
+    .hero {
       display: none;
-    }
 
-    .mainContainerMob {
-      display: flex;
-      width: 100%;
-      margin: 0;
-      height: 50vh;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .mainImg {
-
+      &__buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
 
     h1 {
@@ -60,11 +46,6 @@
 
     p {
       font-size: 16px;
-    }
-
-    .btnContainer {
-      flex-direction: column;
-      gap: 10px;
     }
   }
 }
@@ -82,13 +63,13 @@
     font-size: 18px;
   }
 
-  .textContainer {
+  .about__text {
     max-width: 730px;
     color: #666666;
     line-height: 1.6em;
   }
 
-  .btnContainer {
+  .about__buttons {
     display: flex;
     gap: 20px;
   }
@@ -102,7 +83,7 @@
       padding: 10px;
     }
 
-    .btnContainer {
+    .about__buttons {
       margin: auto;
       flex-direction: column;
       width: 80%;
@@ -113,60 +94,51 @@
     }
   }
 
-  .weDoContainer {
+  .about {
     display: flex;
     margin-bottom: 50px;
     justify-content: space-between;
 
-    .imgContainer {
-      .polygon1 {
+    &__images {
+      &--polygon1 {
         position: absolute;
         bottom: -20%;
         right: 15%;
         backdrop-filter: blur(1px);
       }
-      .polygon2 {
+      &--polygon2 {
         position: absolute;
         right: 2%;
         bottom: -65%;
         backdrop-filter: blur(3px);
       }
-      .polygon3 {
+      
+      &--polygon3 {
         position: absolute;
         right: 20%;
         bottom: -60%;
         backdrop-filter: blur(3px);
       }
     }
-    
+
     @media (max-width: 960px) {
-      .imgContainer {
+      .about__images {
         display: none;
       }
     }
   }
 }
 
-.valuesContainer {
+.values {
   padding: 60px 40px;
   background-color: #E9E9E9;
-
-  .imgContainer {
-    display: flex;
-    justify-content: center;
-
-    img {
-      max-width: 330px;
-      max-height: 300px;
-    }
-  }
 
   @media (max-width: 960px) {
       padding: 20px;
   }
 }
 
-.developmentContainer {
+.development {
   text-align: center;
   background: linear-gradient(320deg, rgba(5, 176, 213, 0.32), rgba(39, 221, 209, 0.39), rgba(70, 205, 22, 0.14), rgba(40, 228, 115, 0.16));
   padding-bottom: 70px;
@@ -184,8 +156,8 @@
     justify-content: space-between;
     align-items: start;
   }
-  
-  .textContainer {
+
+  &__text {
     text-align: left;
     max-width: 500px;
 
@@ -194,7 +166,7 @@
     }
   }
 
-  .videoContainer {
+  &__video {
     max-width: 538px;
     margin: 0 auto;
 
@@ -204,7 +176,7 @@
       border: none;
     }
   }
-  
+
   @media (max-width: 960px) {
     .container {
       display: flex;
@@ -215,14 +187,14 @@
       padding: 20px;
     }
 
-    .textContainer {
+    .development__text {
       padding: 0;
       p {
         padding: 10px;
       }
     }
 
-    .videoContainer {
+    .development__video {
       position: relative;
       width: 100%;
       padding-top: 55.2%;
@@ -241,7 +213,7 @@
   }
 }
 
-.newsContainer {
+.news {
   padding-bottom: 50px;
 
   h2 {
@@ -253,7 +225,7 @@
   }
 }
 
-.intershipContainer {
+.internship {
   background-size: cover;
   background-position: center;
   padding: 150px;
@@ -290,11 +262,11 @@
   }
 }
 
-.questionsContainer {
+.questions {
 
   background: linear-gradient(320deg, rgba(5, 176, 213, 0.32), rgba(39, 221, 209, 0.39), rgba(70, 205, 22, 0.14), rgba(40, 228, 115, 0.16));
 
-  .elemsContainer {
+  &__content {
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -308,9 +280,9 @@
      padding-top: 60px;
      margin: 0 0 50px;
    }
-  
+
   @media (max-width: 960px) {
-    .imageContainer {
+    .questions__image {
       display: none;
     }
 
@@ -319,90 +291,88 @@
       padding: 30px 10px 10px 10px;
     }
 
-    .foldableTextContainer {
+    .questions__foldable {
       margin: 10px;
 
       .foldable {
-
         .foldable-content.open {
           max-height: 670px;
         }
-
       }
     }
   }
 }
 
-.interviewContainer {
+.interview {
   padding: 50px;
   background-size: cover;
   background-position: center;
 
-  .formContainer {
+  &__content {
     background-color: rgba(0, 183, 236, 0.9);
     max-width: 840px;
     text-align: center;
     margin: auto;
+  }
 
-    .form {
-      padding: 20px;
+  &__form {
+    padding: 20px;
+    display: flex;
+    max-width: 800px;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      color: #FFFFFF;
+      font-weight: lighter;
+      margin: 0;
+    }
+
+    .interview__buttons {
       display: flex;
-      max-width: 800px;
-      margin: auto;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 15px;
+      width: 100%;
+      gap: 70px;
+    }
 
-      h2 {
+    .interview__files {
+      margin-right: auto;
+      margin-left: 155px;
+
+      &--list {
+        margin: 20px;
         color: #FFFFFF;
-        font-weight: lighter;
-        margin: 0;
-      }
-
-      .btnContainer {
+        text-decoration: underline;
+        gap: 10px;
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 15px;
-        width: 100%;
-        gap: 70px;
-      }
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
 
-      .filesContainer {
-        margin-right: auto;
-        margin-left: 155px;
+        button {
+          background-color: transparent;
+          border: none;
 
-        .filesListContainer {
-          margin: 20px;
-          color: #FFFFFF;
-          text-decoration: underline;
-          gap: 10px;
-          display: flex;
-          align-items: center;
-          align-content: center;
-          justify-content: space-between;
-
-          button {
-            background-color: transparent;
-            border: none;
-
-            img {
-              cursor: pointer;
-              display: flex;
-              width: 20px;
-              height: 20px;
-              align-self: center;
-            }
+          img {
+            cursor: pointer;
+            display: flex;
+            width: 20px;
+            height: 20px;
+            align-self: center;
           }
         }
-        @media (max-width: 960px) {
-          margin-left: 0;
-          text-align: left;
+      }
+      @media (max-width: 960px) {
+        margin-left: 0;
+        text-align: left;
 
-          .filesListContainer {
-            display: flex;
-            margin: 20px 10px 10px 0;
-            justify-content: space-between;
-          }
+        .interview__files--list {
+          display: flex;
+          margin: 20px 10px 10px 0;
+          justify-content: space-between;
         }
       }
     }
@@ -410,27 +380,27 @@
 }
 
 @media (max-width: 960px) {
-  .interviewContainer {
+  .interview {
     padding: 20px;
 
-    .formContainer {
+    &__form {
+      padding: 50px;
       max-width: 900px;
+    }
 
-      .form {
-        padding: 50px;
-        max-width: 900px;
+    &__buttons {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 20px;
 
-        .btnContainer {
-          display: flex;
-          width: 100%;
-          flex-direction: column;
-          gap: 20px;
-
-          .custom-button {
-            width: 100%;
-          }
-        }
+      .custom-button {
+        width: 100%;
       }
+    }
+
+    &__content {
+      max-width: 900px;
 
       h2 {
         font-size: 28px;
@@ -449,27 +419,27 @@
 }
 
 @media (max-width: 460px) {
-  .interviewContainer {
+  .interview {
     padding: 20px;
 
-    .formContainer {
+    &__form {
+      padding: 50px;
       max-width: 900px;
 
-      .form {
-        padding: 50px;
-        max-width: 900px;
+      .interview__buttons {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
 
-        .btnContainer {
-          display: flex;
+        .custom-button {
           width: 100%;
-          flex-direction: column;
-          gap: 20px;
-
-          .custom-button {
-            width: 100%;
-          }
         }
       }
+    }
+
+    &__content {
+      max-width: 900px;
     }
   }
 }
